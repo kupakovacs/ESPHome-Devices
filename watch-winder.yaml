@@ -1,0 +1,67 @@
+esphome:
+  name: watch-winder
+  friendly_name: watch_winder
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+logger:
+
+api:
+  encryption:
+    key: "569D5+N8IjyU6fGFk7CPE+Z9wyCZjEJ8HeUnd6b2m9Q="
+
+ota:
+  - platform: esphome
+    password: "19888d8278dc1c80c1a03038e5669efc"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  fast_connect: true
+  ap:
+    ssid: "Watch-Winder Fallback Hotspot"
+    password: "eMaEt7EVWuje"
+
+captive_portal:
+
+stepper:
+  - platform: uln2003
+    id: winder_motor
+    pin_a: 26
+    pin_b: 25
+    pin_c: 33
+    pin_d: 32
+    step_mode: HALF_STEP
+    max_speed: 34 steps/s
+    acceleration: 5
+    deceleration: 5
+
+number:
+  - platform: template
+    name: "Winder Speed"
+    min_value: 5
+    max_value: 100
+    step: 1
+    initial_value: 34
+    optimistic: true
+    set_action:
+      - stepper.set_speed:
+          id: winder_motor
+          speed: !lambda "return x;"
+
+switch:
+  - platform: template
+    name: "Winder Power"
+    optimistic: true
+    turn_on_action:
+      - stepper.set_target:
+          id: winder_motor
+          target: 1000000
+    turn_off_action:
+      - stepper.set_target:
+          id: winder_motor
+          target: !lambda |-
+            return id(winder_motor).current_position;

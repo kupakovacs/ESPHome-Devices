@@ -1,0 +1,43 @@
+# Board: Espressif Generic ESP8266 ESP-01 1M
+# Definition: definitions/boards/esp01_1m/manifest.yaml
+
+esphome:
+  name: fairy-lights
+  friendly_name: fairy lights
+
+esp8266:
+  board: esp01_1m
+
+logger:
+  level: NONE
+
+api:
+
+ota:
+  - platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: fairy lights Fallback Hotspot
+    password: "xyHnCgAIFJg5"
+
+captive_portal:
+
+uart:
+- id: uart_01
+  baud_rate: 115200
+  tx_pin: 1
+
+switch:
+  - platform: template
+    name: Fairy Light Switch
+    id: switch_template_1
+    on_turn_off:
+      - then:
+          - uart.write:  [0xA0, 0x01, 0x00, 0xA1]
+    on_turn_on:
+      - then:
+          - uart.write:  [0xA0, 0x01, 0x01, 0xA2]
+    optimistic: true
