@@ -4,9 +4,9 @@ This repository contains ESPHome configurations for multiple DIY devices, organi
 
 ## Included configurations
 
-- `/home/runner/work/ESPHome-Devices/ESPHome-Devices/bme280-sensor.yaml` – Outdoor BME280 temperature, humidity, and pressure sensor (ESP8266).
-- `/home/runner/work/ESPHome-Devices/ESPHome-Devices/watch-winder.yaml` – Stepper-driven watch winder controller (ESP32 + ULN2003).
-- `/home/runner/work/ESPHome-Devices/ESPHome-Devices/esp-relay.yaml` – Fairy lights serial-controlled switch (ESP8266).
+- `bme280-sensor.yaml` – Outdoor BME280 temperature, humidity, and pressure sensor (ESP8266).
+- `watch-winder.yaml` – Stepper-driven watch winder controller (ESP32 + ULN2003).
+- `esp-relay.yaml` – Fairy lights serial-controlled switch (ESP8266).
 
 ## Safe to publish
 
