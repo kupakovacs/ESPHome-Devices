@@ -1,6 +1,6 @@
 esphome:
   name: watch-winder
-  friendly_name: watch_winder
+  friendly_name: Watch Winder
 
 esp32:
   board: esp32dev
@@ -11,11 +11,11 @@ logger:
 
 api:
   encryption:
-    key: "569D5+N8IjyU6fGFk7CPE+Z9wyCZjEJ8HeUnd6b2m9Q="
+    key: !secret watch_winder_api_encryption_key
 
 ota:
   - platform: esphome
-    password: "19888d8278dc1c80c1a03038e5669efc"
+    password: !secret watch_winder_ota_password
 
 wifi:
   ssid: !secret wifi_ssid
@@ -23,7 +23,7 @@ wifi:
   fast_connect: true
   ap:
     ssid: "Watch-Winder Fallback Hotspot"
-    password: "eMaEt7EVWuje"
+    password: !secret watch_winder_ap_password
 
 captive_portal:
 
